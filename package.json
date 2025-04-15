@@ -1,0 +1,21 @@
+{
+    "name": "spotify-oauth-app",
+    "version": "1.0.0",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "@google/genai": "^0.8.0",
+        "axios": "^1.8.4",
+        "dotenv": "^16.5.0",
+        "express": "^4.21.2",
+        "express-session": "^1.18.1",
+        "passport": "^0.7.0",
+        "passport-spotify": "^2.0.0"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": ""
+}
