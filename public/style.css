@@ -1,205 +1,252 @@
 :root {
-    --spotify-black: #191414;
-    --spotify-green: rgb(29, 185, 84);
-    --spotify-light-black: #282828;
-    --spotify-gray: #b3b3b3;
-    --spotify-dark-gray: #535353;
-  }
-  
-  body {
-    background-color: var(--spotify-black);
-    color: white;
-    font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-  
-  .card {
-    background-color: var(--spotify-light-black);
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .card-title {
-    color: white;
-    font-weight: 700;
-  }
-  
-  .form-control, .form-control:focus {
-    background-color: var(--spotify-dark-gray);
-    border: 1px solid var(--spotify-dark-gray);
-    color: white;
-    border-radius: 500px;
-    padding: 10px 20px;
-  }
-  
-  .form-control::placeholder {
-    color: var(--spotify-gray);
-  }
+  --spotify-black: #191414;
+  --spotify-green: rgb(29, 185, 84);
+  --spotify-light-black: #282828;
+  --spotify-gray: #b3b3b3;
+  --spotify-dark-gray: #535353;
+}
 
-  .form-label, .matched-songs {
-    color: white
-  }
-  
-  .btn-primary {
-    background-color: var(--spotify-green);
-    border: none;
-    color: black;
-    font-weight: 700;
-    border-radius: 500px;
-    padding: 10px 30px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  
-  .btn-primary:hover {
-    background-color: #1ed760;
-    transform: scale(1.03);
-  }
-  
-  .btn-danger {
-    border-radius: 500px;
-    font-weight: 700;
-    padding: 10px 30px;
-  }
-  
+body {
+  background-color: var(--spotify-black);
+  color: white;
+  font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 
-  .input-group {
-    margin-top: 15px;
-  }
-  
+.card {
+  background-color: var(--spotify-light-black);
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  color: white;
+  font-weight: 700;
+}
+
+.form-control, .form-control:focus {
+  background-color: var(--spotify-dark-gray);
+  border: 1px solid var(--spotify-dark-gray);
+  color: white;
+  border-radius: 500px;
+  padding: 10px 20px;
+}
+
+.form-control::placeholder {
+  color: var(--spotify-gray);
+}
+
+.form-label, .matched-songs {
+  color: white
+}
+
+.btn-primary {
+  background-color: var(--spotify-green);
+  border: none;
+  color: black;
+  font-weight: 700;
+  border-radius: 500px;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background-color: #1ed760;
+  transform: scale(1.03);
+}
+
+.btn-danger {
+  border-radius: 500px;
+  font-weight: 700;
+  padding: 10px 30px;
+}
+
+.input-group {
+  margin-top: 15px;
+}
+
+.navbar {
+  background-color: var(--spotify-light-black);
+  padding: 15px;
+}
+
+.navbar-brand {
+  color: var(--spotify-green);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.profile-header {
+  background: linear-gradient(to bottom, #1DB954, #191414);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
   .navbar {
-    background-color: var(--spotify-light-black);
     padding: 15px 30px;
   }
   
   .navbar-brand {
-    color: var(--spotify-green);
-    font-weight: 700;
     font-size: 24px;
   }
   
   .profile-header {
-    background: linear-gradient(to bottom, #1DB954, #191414);
     padding: 30px;
-    border-radius: 8px;
     margin-bottom: 30px;
   }
-  .song-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+  
+  .btn-primary {
+    padding: 10px 30px;
+  }
+}
+
+.song-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.song-item:hover {
+  background-color: var(--spotify-dark-gray);
+}
+
+.song-info {
+  margin-left: 15px;
+}
+
+.song-title {
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.song-artist {
+  color: var(--spotify-gray);
+  font-size: 0.9rem;
+}
+
+.form-check-input:checked {
+  background-color: var(--spotify-green);
+  border-color: var(--spotify-green);
+}
+
+.form-check-label {
+  color: white;
+}
+
+.form-switch .form-check-input {
+  width: 3em;
+  height: 1.5em;
+}
+
+.chat-message {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-radius: 18px;
+  max-width: 80%;
+}
+
+.user-message {
+  background-color: var(--spotify-green);
+  color: black;
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+}
+
+.bot-message {
+  background-color: var(--spotify-dark-gray);
+  margin-right: auto;
+  border-bottom-left-radius: 4px;
+}
+
+.message {
+  margin-bottom: 12px;
+  padding: 10px 15px;
+  border-radius: 18px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.typing-indicator {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #f1f1f1;
+  border-radius: 18px;
+  margin-bottom: 10px;
+}
+
+.playlistLinkAnchor {
+  color: #28a745;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.playlistLinkAnchor:hover {
+  color: #218838;
+  text-decoration: underline;
+}
+
+.typing-indicator span {
+  height: 8px;
+  width: 8px;
+  background-color: #666;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 2px;
+  animation: typingAnimation 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Loading spinner styles */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.25em;
+}
+
+#loadingSpinner {
+  transition: all 0.3s ease;
+}
+
+@keyframes typingAnimation {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-5px); }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 767px) {
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
   }
   
-  .song-item:hover {
-    background-color: var(--spotify-dark-gray);
+  .input-group {
+    flex-wrap: nowrap;
   }
   
-  .song-info {
-    margin-left: 15px;
-  }
-  
-  .song-title {
-    font-weight: 600;
-    margin-bottom: 0;
-  }
-  
-  .song-artist {
-    color: var(--spotify-gray);
+  #gemini-input {
     font-size: 0.9rem;
   }
   
-  .form-check-input:checked {
-    background-color: var(--spotify-green);
-    border-color: var(--spotify-green);
-  }
-
-  .form-check-label {
-    color: white;
+  .card-body {
+    padding: 1.25rem;
   }
   
-  .form-switch .form-check-input {
-    width: 3em;
-    height: 1.5em;
+  .btn {
+    font-size: 0.9rem;
   }
-  
-  .chat-message {
-    margin-bottom: 10px;
-    padding: 8px 12px;
-    border-radius: 18px;
-    max-width: 80%;
-  }
-  
-  .user-message {
-    background-color: var(--spotify-green);
-    color: black;
-    margin-left: auto;
-    border-bottom-right-radius: 4px;
-  }
-  
-  .bot-message {
-    background-color: var(--spotify-dark-gray);
-    margin-right: auto;
-    border-bottom-left-radius: 4px;
-  }
-
-  /* Chat message styles */
- /* #gemini-chat-box {
-    background-color: var(--spotify-dark-gray);
-    border-radius: 8px;
-    padding: 15px;
-  } 
-   */
-  .message {
-    margin-bottom: 12px;
-    padding: 10px 15px;
-    border-radius: 18px;
-    max-width: 80%;
-    word-wrap: break-word;
-  }
-
-  /* Typing indicator styles */
-.typing-indicator {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #f1f1f1;
-    border-radius: 18px;
-    margin-bottom: 10px;
-  }
-
-  .playlistLinkAnchor {
-    color: #28a745; /* Bootstrap-style green */
-    font-weight: bold;
-    text-decoration: none;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
-  }
-  
-  .playlistLinkAnchor:hover {
-    color: #218838;
-    text-decoration: underline;
-  }
-  
-  
-  .typing-indicator span {
-    height: 8px;
-    width: 8px;
-    background-color: #666;
-    border-radius: 50%;
-    display: inline-block;
-    margin: 0 2px;
-    animation: typingAnimation 1.4s infinite ease-in-out;
-  }
-  
-  .typing-indicator span:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-  
-  .typing-indicator span:nth-child(3) {
-    animation-delay: 0.4s;
-  }
-  
-  @keyframes typingAnimation {
-    0%, 60%, 100% { transform: translateY(0); }
-    30% { transform: translateY(-5px); }
-  }
+}

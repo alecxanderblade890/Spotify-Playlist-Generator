@@ -49,6 +49,8 @@ document.getElementById('confirmAddBtn').addEventListener('click', async () => {
     return;
   }
 
+  showLoadingCreatingPlaylist('confirmAddBtn');
+
   const res = await fetch('/api/match-songs', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -57,6 +59,8 @@ document.getElementById('confirmAddBtn').addEventListener('click', async () => {
 
   const results = await res.json();
   matchedTracks = results.map(r => r.uri);
+
+
 
   try {
     // First create the playlist
@@ -83,7 +87,6 @@ document.getElementById('confirmAddBtn').addEventListener('click', async () => {
     const playlistUrl = playlist.external_urls?.spotify;
 
     const status = document.getElementById('addStatus');
-    alert(addRes.ok);
     if (addRes.ok) {
       status.innerHTML = `✅ Playlist <strong>${playlist.name}</strong> created with ${matchedTracks.length} tracks!`;
       // Reset form
@@ -99,6 +102,7 @@ document.getElementById('confirmAddBtn').addEventListener('click', async () => {
     console.error(err);
     document.getElementById('addStatus').textContent = `❌ Error: ${err.message}`;
   }
+  hideLoadingCreatingPlaylist('confirmAddBtn');
 });
 
 let geminiConversationHistory = []; // Initialize history array
@@ -106,59 +110,70 @@ let geminiConversationHistory = []; // Initialize history array
 const prefixPrompt = 'You are a chatbot whose sole purpose is to suggest songs. In your response, only give the song names and artists. Do not say anything else and just give the song names. After every song put a <br>. The user prompt is: ';
 
 document.getElementById('gemini-send').addEventListener('click', async () => {
-const input = document.getElementById('gemini-input');
-const question = input.value.trim();
-
-if (!question) return;
-
-input.value = '';
-
-// Build the conversation
-if (geminiConversationHistory.length === 0) {
-  // First message: prepend prefixPrompt with the user question
-  const systemMessage = {
-    role: "user",
-    parts: [{ text: prefixPrompt + question }]
-  };
-  geminiConversationHistory.push(systemMessage);
-} else {
-  // Regular follow-up message
-  const userMessage = {
-    role: "user",
-    parts: [{ text: question }]
-  };
-  geminiConversationHistory.push(userMessage);
-}
-
-const contents = [...geminiConversationHistory];
-showTypingIndicator();
-try {
-  const res = await fetch('/api/gemini', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ prompt: contents })
-  });
-
-  const data = await res.json();
-
-  if (data && data.response) {
-    // Extract song list from response and populate bulkSongs textarea
-    document.getElementById('matchedSongs').innerHTML = data.response.replace(/<br>/g, '\n').replace(/\n+/g, '\n').replace(/\n/g, '<br>').trim();      
-    document.getElementById('confirmAddBtn').style.display = 'block';
-  
-    const modelResponse = {
-      role: "model",
-      parts: [{ text: data.response }]
-    };
-
-    geminiConversationHistory.push(modelResponse);
-    hideTypingIndicator();
-  } 
-} catch (error) {
-  console.error("Fetch error:", error);
-
-}
+  sendPrompt();
 });
+
+document.addEventListener('keydown', async (event) => {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault(); // Prevent default form submission
+    sendPrompt();
+  }
+});
+
+async function sendPrompt()
+{
+  const input = document.getElementById('gemini-input');
+  const question = input.value.trim();
+
+  if (!question) return;
+
+  input.value = '';
+
+  // Build the conversation
+  if (geminiConversationHistory.length === 0) {
+    // First message: prepend prefixPrompt with the user question
+    const systemMessage = {
+      role: "user",
+      parts: [{ text: prefixPrompt + question }]
+    };
+    geminiConversationHistory.push(systemMessage);
+  } else {
+    // Regular follow-up message
+    const userMessage = {
+      role: "user",
+      parts: [{ text: question }]
+    };
+    geminiConversationHistory.push(userMessage);
+  }
+
+  const contents = [...geminiConversationHistory];
+  showTypingIndicator();
+  try {
+    const res = await fetch('/api/gemini', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: contents })
+    });
+
+    const data = await res.json();
+
+    if (data && data.response) {
+      // Extract song list from response and populate bulkSongs textarea
+      document.getElementById('matchedSongs').innerHTML = data.response.replace(/<br>/g, '\n').replace(/\n+/g, '\n').replace(/\n/g, '<br>').trim();      
+      document.getElementById('confirmAddBtn').style.display = 'block';
+    
+      const modelResponse = {
+        role: "model",
+        parts: [{ text: data.response }]
+      };
+
+      geminiConversationHistory.push(modelResponse);
+      hideTypingIndicator();
+    } 
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+}
 
 // Function to show typing indicator
 function showTypingIndicator() {
@@ -176,4 +191,32 @@ function hideTypingIndicator() {
   if (typingIndicator) {
     typingIndicator.remove();
   }
+}
+
+// Reusable loading functions
+function showLoadingCreatingPlaylist(buttonId) {
+  const button = document.getElementById(buttonId);
+  if (!button) return;
+  
+  // Store original button HTML if not already stored
+  if (!button.dataset.originalHtml) {
+    button.dataset.originalHtml = button.innerHTML;
+  }
+  
+  // Show spinner and disable button
+  button.innerHTML = `
+    <span class="spinner-border spinner-border-sm" role="status"></span>
+  `;
+  button.disabled = true;
+}
+
+function hideLoadingCreatingPlaylist(buttonId, restoreOriginal = true) {
+  const button = document.getElementById(buttonId);
+  if (!button) return;
+  
+  if (restoreOriginal && button.dataset.originalHtml) {
+    button.innerHTML = button.dataset.originalHtml;
+  }
+  
+  button.disabled = false;
 }
